@@ -78,11 +78,13 @@ class S3 extends BaseClass
       copyOptions = if toFolder
         Bucket:     fromBucket
         Key:        fromKey
+        ACL:        'bucket-owner-full-control'
 
       else
         CopySource: "" #{fromBucket}/#{fromKey}
         Bucket:     toBucket
         Key:        toKey
+        ACL:        'bucket-owner-full-control'
 
       if verbose
         log.unquoted copyObject: copyOptions
@@ -115,7 +117,7 @@ class S3 extends BaseClass
 
     command =
       ""
-        aws s3 cp
+        aws s3 cp --acl bucket-owner-full-control
         #{} escape createS3Url fromBucket, fromFolder, fromKey
         #{} escape createS3Url toBucket, toFolder, toKey
     if verbose

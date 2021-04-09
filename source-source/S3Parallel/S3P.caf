@@ -156,7 +156,7 @@ class S3P
           # added
           (key, sourceValue) ->
             fromKey = reverseKeyMap?[key] ? key
-            log "aws s3 cp #{createS3Url bucket, fromFolder, fromKey} #{createS3Url toBucket, toFolder, key} # #{humanByteSize sourceValue}" if logToCopy || verbose
+            log "aws s3 cp --acl bucket-owner-full-control {createS3Url bucket, fromFolder, fromKey} #{createS3Url toBucket, toFolder, key} # #{humanByteSize sourceValue}" if logToCopy || verbose
             bytes.needToCopy += sourceValue; counts.needToCopy++; counts.missingInTarget++
 
           # removed
@@ -167,7 +167,7 @@ class S3P
           # changed
           (key, sourceValue, targetValue) ->
             fromKey = reverseKeyMap?[key] ? key
-            log "aws s3 cp #{createS3Url bucket, fromFolder, fromKey} #{createS3Url toBucket, toFolder, key} # replace #{humanByteSize targetValue} with #{humanByteSize sourceValue}" if logToReplace || verbose
+            log "aws s3 cp --acl bucket-owner-full-control #{createS3Url bucket, fromFolder, fromKey} #{createS3Url toBucket, toFolder, key} # replace #{humanByteSize targetValue} with #{humanByteSize sourceValue}" if logToReplace || verbose
             counts.different++
             counts.needToReplace++
             bytes.needToReplace+=targetValue
