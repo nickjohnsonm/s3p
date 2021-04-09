@@ -395,7 +395,7 @@ Caf.defMod(module, () => {
                             : key;
                         if (logToCopy || verbose) {
                           log(
-                            `aws s3 cp ${Caf.toString(
+                            `aws s3 cp --acl bucket-owner-full-control ${Caf.toString(
                               createS3Url(bucket, fromFolder, fromKey)
                             )} ${Caf.toString(
                               createS3Url(toBucket, toFolder, key)
